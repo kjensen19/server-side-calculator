@@ -11,6 +11,11 @@ app.post('/sendData', (req, res) => {
     res.sendStatus(201)
 })
 
+app.get('/getData', (req, res) =>{
+    //send equation/answer obj
+    res.send()
+})
+
 
 
 app.listen(PORT, () => {

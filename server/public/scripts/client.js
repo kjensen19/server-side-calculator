@@ -8,7 +8,7 @@ function handleReady() {
 let currentStr = ''
 let operandArr = ['-', '/', '+', '*', "C", "AC", '=']
 
-calcObj = []
+calcObj = {}
 
 
 //function to concat strings, need to track operand to switch str, then equals
@@ -28,14 +28,15 @@ function clickCollector() {
             }
             else {
                 //call POST function
-                calcObj.push(currentStr)
+                calcObj.secondVal = Number(currentStr)
                 sendExpression()
             }
         }
         else {
             //push string, push operand
-            calcObj.push(currentStr)
-            calcObj.push(inputVal)
+            calcObj.firstVal = Number(currentStr)
+            calcObj.opVal = inputVal
+            $('#screen').text(`${inputVal}`)
             console.log(`operand else ${calcObj}`)
             currentStr = ''
         }
@@ -43,6 +44,7 @@ function clickCollector() {
     else {
         currentStr += inputVal
         console.log(`currentStr = ${currentStr}`)
+        $('#screen').text(`${currentStr}`)
     }
     return currentStr
 }
@@ -51,10 +53,21 @@ function sendExpression() {
     $.ajax({
         type: 'POST',
         url: '/sendData',
-        data: {calcObj}
+        data: calcObj
       }).then(function(response) {
-        
+        //call GET request function
+        fetchAnswer()
       })
 }
-    
+
+function fetchAnswer() {
+    $.ajax({
+        type: 'GET',
+        url: '/getData'
+    }).then(function(response) {
+        //render data to DOM
+            //answer to screen
+            //equation to history
+    })
+}
     
