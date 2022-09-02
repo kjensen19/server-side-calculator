@@ -8,7 +8,10 @@ function handleReady() {
 let currentStr = ''
 let operandArr = ['-', '/', '+', '*', "C", "AC", '=']
 
-calcObj = {}
+calcObj = {
+    vals: [],
+    opVal: []
+}
 
 
 //function to concat strings, need to track operand to switch str, then equals
@@ -24,17 +27,18 @@ function clickCollector() {
             }
             else if (inputVal === 'AC') {
                 currentStr = ''
-                calcObj.length(0)
+                calcObj.vals = [];
+                calcObj.opVal = []
             }
             else {
                 //call POST function
-                calcObj.secondVal = Number(currentStr)
+                calcObj.vals.push(Number(currentStr))
                 sendExpression()
             }
         }
         else {
             //push string, push operand
-            calcObj.firstVal = Number(currentStr)
+            calcObj.vals.push(Number(currentStr))
             calcObj.opVal = inputVal
             $('#screen').text(`${inputVal}`)
             console.log(`operand else ${calcObj}`)
