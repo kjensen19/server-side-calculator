@@ -24,6 +24,8 @@ function clickCollector() {
             console.log('A, AC, =')
             if (inputVal === 'C') {
                 currentStr = ''
+                $('#screen').text('')
+
             }
             else if (inputVal === 'AC') {
                 currentStr = ''
@@ -33,6 +35,8 @@ function clickCollector() {
             else {
                 //call POST function
                 calcObj.vals.push(Number(currentStr))
+                $('#screen').text('')
+                currentStr = ''
                 sendExpression()
             }
         }
@@ -60,6 +64,8 @@ function sendExpression() {
         data: calcObj
       }).then(function(response) {
         //call GET request function
+        calcObj.vals = [];
+        calcObj.opVal = []
         fetchAnswer()
       })
 }
@@ -69,6 +75,16 @@ function fetchAnswer() {
         type: 'GET',
         url: '/getData'
     }).then(function(response) {
+        console.log(`response in fetch-then ${response.valueOne[0]}`)
+        $('#eqRec').empty()
+        $('#screen').text(`${response.eqRes[0]}`)
+        for(let i=0;i < response.valueOne.length;i++) {
+            $('#eqRec').append(`
+                <li>${response.valueOne[i]} ${response.valOpr[i]} ${response.valueTwo[i]} = ${response.eqRes[i]}
+            `)
+
+        }
+        
         //render data to DOM
             //answer to screen
             //equation to history
