@@ -43,11 +43,18 @@ function clickCollector() {
         }
         else {
             //push string, push operand
-            calcObj.vals.push(Number(currentStr))
-            calcObj.opVal = inputVal
-            $('#screen').text(`${inputVal}`)
-            console.log(`operand else ${calcObj}`)
-            currentStr = ''
+            if (currentStr !== '') {
+                calcObj.vals.push(Number(currentStr))
+                calcObj.opVal.unshift(inputVal)
+                $('#screen').text(`${inputVal}`)
+                console.log(`operand else ${calcObj}`)
+                console.log(calcObj)
+                currentStr = ''
+            }
+            else {
+                calcObj.opVal.unshift(inputVal)
+                $('#screen').text(`${inputVal}`)
+            }
         }
     }
     else {
@@ -59,7 +66,8 @@ function clickCollector() {
 }
 
 function sendExpression() {
-    if (calcObj.vals.length === 2 && calcObj.opVal.length === 1)
+    console.log(`calcObj.length, ${calcObj.vals} ${calcObj.vals.length}`)
+    if (calcObj.vals.length === 2)
     $.ajax({
         type: 'POST',
         url: '/sendData',
@@ -84,7 +92,8 @@ function fetchAnswer() {
     }).then(function(response) {
         console.log(`response in fetch-then ${response.valueOne[0]}`)
         $('#eqRec').empty()
-        $('#screen').text(`${response.eqRes[0]}`)
+        currentStr = (`${response.eqRes[0]}`)
+        $('#screen').text(`${currentStr}`)
         for(let i=0;i < response.valueOne.length;i++) {
             $('#eqRec').append(`
                 <li>${response.valueOne[i]} ${response.valOpr[i]} ${response.valueTwo[i]} = ${response.eqRes[i]}
@@ -99,5 +108,5 @@ function fetchAnswer() {
 }
     
 function reRunEq() {
-    
+
 }

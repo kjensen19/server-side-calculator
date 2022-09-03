@@ -16,7 +16,7 @@ let equationObject = {
 app.post('/sendData', (req, res) => {
     console.log('hi', req.body)
     equationObject.valueOne.unshift(Number(req.body.vals[0]))
-    equationObject.valOpr.unshift(req.body.opVal)
+    equationObject.valOpr.unshift(req.body.opVal[0])
     equationObject.valueTwo.unshift(Number(req.body.vals[1]))
     if (equationObject.valOpr[0] === '+') {
         console.log('in plus')
