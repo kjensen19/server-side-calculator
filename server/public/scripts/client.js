@@ -8,6 +8,7 @@ function handleReady() {
 let currentStr = ''
 let operandArr = ['-', '/', '+', '*', "C", "AC", '=']
 
+
 calcObj = {
     vals: [],
     opVal: []
@@ -25,7 +26,6 @@ function clickCollector() {
             if (inputVal === 'C') {
                 currentStr = ''
                 $('#screen').text('')
-
             }
             else if (inputVal === 'AC') {
                 currentStr = ''
@@ -58,6 +58,7 @@ function clickCollector() {
 }
 
 function sendExpression() {
+    if (calcObj.vals.length === 2 && calcObj.opVal.length === 1)
     $.ajax({
         type: 'POST',
         url: '/sendData',
@@ -68,6 +69,11 @@ function sendExpression() {
         calcObj.opVal = []
         fetchAnswer()
       })
+    else {
+        $('#Screen').text('Error!')
+        calcObj.vals.length = []
+        calcObj.opVal.length = []
+    }
 }
 
 function fetchAnswer() {
