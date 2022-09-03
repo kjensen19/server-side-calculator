@@ -3,6 +3,7 @@ $(document).ready(handleReady);
 function handleReady() {
     console.log('JS/JQ')
     $('#calc').on('click','button', clickCollector)
+    $('#eqRec').on('click', 'li', reRunEq)
 }
 //create string variables to store button clicks
 let currentStr = ''
@@ -97,3 +98,6 @@ function fetchAnswer() {
     })
 }
     
+function reRunEq() {
+    
+}
