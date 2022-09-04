@@ -111,7 +111,7 @@ function fetchAnswer() {
         $('#screen').text(`${currentStr}`)
         for(let i=0;i < response.valueOne.length;i++) {
             $('#eqRec').append(`
-                <li>${response.valueOne[i]} ${response.valOpr[i]} ${response.valueTwo[i]} = ${response.eqRes[i]}
+                <li data-eq="${response.eqRes[i]}">${response.valueOne[i]} ${response.valOpr[i]} ${response.valueTwo[i]} = <span>${response.eqRes[i]}</span>
             `)
 
         }
@@ -123,7 +123,14 @@ function fetchAnswer() {
 }
     
 function reRunEq() {
-
+    currentStr = $(this).attr('data-eq')
+    console.log($(this).closest('span').text())
+    $('#screen').text(currentStr)
+    calcObj = {
+        vals: [],
+        opVal: []
+    }
+    valCheck = currentStr
 }
 
 function delHistory() {
