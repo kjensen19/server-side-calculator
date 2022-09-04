@@ -3,6 +3,11 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'digital-7';
+    src: url('../fonts/digital-7.ttf');
+  }
+
 body {
     margin: 0;
     background-color: antiquewhite;
@@ -11,6 +16,7 @@ body {
     align-content:stretch;
     justify-content: center;
     align-items: left;
+    font-family: 'digital-7', sans-serif;
     
 }
 
