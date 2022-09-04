@@ -10,10 +10,11 @@ let currentStr = ''
 let operandArr = ['-', '/', '+', '*', "C", "AC", '=']
 
 
-calcObj = {
+let calcObj = {
     vals: [],
     opVal: []
 }
+let valCheck = 't'
 
 
 //function to concat strings, need to track operand to switch str, then equals
@@ -35,11 +36,12 @@ function clickCollector() {
                 delHistory()
             }
             else {
-                //call POST function
-                calcObj.vals.push(Number(currentStr))
-                $('#screen').text('')
-                currentStr = ''
-                sendExpression()
+                if (currentStr !== '') {
+                    calcObj.vals.push(Number(currentStr))
+                    $('#screen').text('')
+                    currentStr = ''
+                    sendExpression()
+                }
             }
         }
         else {
@@ -59,6 +61,14 @@ function clickCollector() {
         }
     }
     else {
+        if (currentStr == valCheck){
+            currentStr = '';
+        }
+        else if (inputVal === '.') {
+            if(currentStr.includes('.')) {
+                inputVal = ''
+            }
+        }
         currentStr += inputVal
         console.log(`currentStr = ${currentStr}`)
         $('#screen').text(`${currentStr}`)
@@ -69,21 +79,21 @@ function clickCollector() {
 function sendExpression() {
     console.log(`calcObj.length, ${calcObj.vals} ${calcObj.vals.length}`)
     if (calcObj.vals.length === 2)
-    $.ajax({
-        type: 'POST',
-        url: '/sendData',
-        data: calcObj
-      }).then(function(response) {
-        //call GET request function
-        calcObj.vals = [];
-        calcObj.opVal = []
-        fetchAnswer()
-      })
-    else {
-        $('#Screen').text('Error!')
-        calcObj.vals.length = []
-        calcObj.opVal.length = []
-    }
+        $.ajax({
+            type: 'POST',
+            url: '/sendData',
+            data: calcObj
+        }).then(function(response) {
+            //call GET request function
+            calcObj.vals = [];
+            calcObj.opVal = []
+            fetchAnswer()
+        })
+        else {
+            $('#Screen').text('Error!')
+            calcObj.vals.length = []
+            calcObj.opVal.length = []
+        }
 }
 
 function fetchAnswer() {
@@ -93,7 +103,11 @@ function fetchAnswer() {
     }).then(function(response) {
         console.log(`response in fetch-then ${response.valueOne[0]}`)
         $('#eqRec').empty()
-        currentStr = (`${response.eqRes[0]}`)
+        valCheck = response.eqRes[0]
+        if (response.eqRes[0]) {
+            currentStr = (`${response.eqRes[0]}`)}
+        else{
+            currentStr = ''}
         $('#screen').text(`${currentStr}`)
         for(let i=0;i < response.valueOne.length;i++) {
             $('#eqRec').append(`
@@ -104,7 +118,7 @@ function fetchAnswer() {
         
         //render data to DOM
             //answer to screen
-            //equation to history
+        return valCheck        //equation to history
     })
 }
     
@@ -113,5 +127,11 @@ function reRunEq() {
 }
 
 function delHistory() {
+    $.ajax({
+        type: 'DELETE',
+        url:'/delData'
+    }).then(function(response) {
+        fetchAnswer()
+    })
     
 }

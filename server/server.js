@@ -47,6 +47,19 @@ app.get('/getData', (req, res) =>{
     res.send(equationObject)
 })
 
+app.delete('/delData', (req, res) => {
+    console.log('In delete');
+    equationObject = {
+        valueOne: [],
+        valOpr: [],
+        valueTwo: [],
+        eqRes: []
+    }
+    res.sendStatus(200)
+
+
+})
+
 
 
 app.listen(PORT, () => {
