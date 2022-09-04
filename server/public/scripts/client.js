@@ -31,7 +31,8 @@ function clickCollector() {
             else if (inputVal === 'AC') {
                 currentStr = ''
                 calcObj.vals = [];
-                calcObj.opVal = []
+                calcObj.opVal = [];
+                delHistory()
             }
             else {
                 //call POST function
@@ -109,4 +110,8 @@ function fetchAnswer() {
     
 function reRunEq() {
 
+}
+
+function delHistory() {
+    
 }

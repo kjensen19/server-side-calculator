@@ -5,25 +5,26 @@
 
 body {
     margin: 0;
-    font-family: sans-serif;
     background-color: antiquewhite;
     display: flex;
-    flex-flow: column;
-    align-content: center;
+    flex-flow:row;
+    align-content:stretch;
     justify-content: center;
-    align-items: center;
+    align-items: left;
     
 }
 
-#calc {
+#calc, #eqHist {
     border: 1.5rem solid slategrey;
     height: 46rem;
-    width: 29rem;
+    width: 30rem;
     background-color: rgb(60, 59, 60);
     border-radius: 2rem;
     justify-content: center;
     align-content: center;
     box-shadow: 2rem 2rem rgb(60, 59, 60);
+    text-align: center;
+    margin-top: 1rem;
 }
 
 h3 {
@@ -38,7 +39,6 @@ h3 {
     color: white;
     box-shadow: .2rem .2rem .3rem .3rem darkorchid, -.2rem -.2rem .3rem .3rem darkorchid;
     color: chartreuse;
-    font-family: fantasy;
     padding-right: .5rem;
 }
 
@@ -53,7 +53,7 @@ button {
     background-image: radial-gradient(darkmagenta, darkorchid, darkviolet);
     color: aliceblue;
     font-size: 1.75rem;
-    box-shadow: .2rem .2rem .3rem .3rem darkorchid, -.2rem -.2rem .3rem .3rem darkorchid;
+    box-shadow: .2rem .2rem .3rem .3rem white, -.2rem -.2rem .3rem .3rem white;
 }
 
 button:active {
@@ -65,3 +65,29 @@ button:active {
 .dbl-btn {
     width: 11.5rem;
 }
+
+h1 {
+    font-size: 3rem;
+    text-align: center;
+}
+li {
+    font-size: 2rem;
+}
+
+#eqHist {
+    background-color: chartreuse;
+    margin-left: 10rem;
+    font-weight: bold;
+}
+
+@media only screen and (max-width: 1125px) {
+    body {
+      flex-flow: column;
+      align-items: center;
+      align-content: center;
+    }
+    #eqHist {
+        margin-left: 0;
+        margin-top: 3rem;
+    }
+  }
