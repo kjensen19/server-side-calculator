@@ -7,7 +7,6 @@
 
 body {
     margin: 0;
-
     display: flex;
     flex-flow:row;
     align-content:stretch;
