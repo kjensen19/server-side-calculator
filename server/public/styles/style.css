@@ -73,6 +73,7 @@ h1 {
     font-size: 3rem;
     text-align: center;
 }
+
 li {
     font-size: 2rem;
 }
@@ -83,6 +84,7 @@ li {
     font-weight: bold;
     color: darkorchid
 }
+
 /* media query to switch for mobile */
 @media only screen and (max-width: 1125px) {
     body {
